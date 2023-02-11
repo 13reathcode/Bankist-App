@@ -150,5 +150,6 @@ btnLogin.addEventListener('click', function (event) {
 
     // Display Summary
     calcDisplaySummary(currentAccount);
+    //
   }
 });
