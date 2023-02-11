@@ -73,7 +73,7 @@ const displayMovements = function (movements) {
     const html = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${index + 1} ${type}</div>
-          <div class="movements__value">${movement}</div>
+          <div class="movements__value">${movement}₴</div>
         </div>
         `;
 
@@ -82,6 +82,34 @@ const displayMovements = function (movements) {
 };
 
 displayMovements(account1.movements);
+
+const calcDisplayBalance = movements => {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} UAH`;
+};
+
+calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = movements => {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes} ₴`;
+
+  const outcomes = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(outcomes)} ₴`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => deposit * 0.012)
+    .filter(int => int > 1)
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest} ₴`;
+};
+
+calcDisplaySummary(account1.movements);
 
 const createUsername = accounts => {
   accounts.forEach(account => {
@@ -95,5 +123,3 @@ const createUsername = accounts => {
 };
 
 createUsername(accounts);
-
-console.log(account1);
