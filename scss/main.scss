@@ -32,6 +32,13 @@ nav {
   padding: 0 2rem;
 }
 
+h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #333;
+}
+
 // Navigation
 
 .welcome {
@@ -99,7 +106,7 @@ nav {
   gap: 2rem;
 
   /* NOTE This creates the fade in/out anumation */
-  opacity: 1;
+  opacity: 0;
   transition: all 1s;
 }
 
@@ -135,6 +142,18 @@ nav {
   border-radius: 1rem;
   overflow: scroll;
 
+  &__date {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #666;
+  }
+
+  &__value {
+    font-size: 1.7rem;
+    margin-left: auto;
+  }
+
   &__row {
     padding: 2.25rem 4rem;
     display: flex;
@@ -157,18 +176,6 @@ nav {
 
     &--withdrawal {
       background-image: linear-gradient(to top left, #e52a5a, #ff585f);
-    }
-
-    &__date {
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      font-weight: 500;
-      color: #666;
-    }
-
-    &__value {
-      font-size: 1.7rem;
-      margin-left: auto;
     }
   }
 }
@@ -231,13 +238,6 @@ nav {
   &--close {
     background-image: linear-gradient(to top left, #e52a5a, #ff585f);
   }
-}
-
-h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.7rem;
-  font-weight: 600;
-  color: #333;
 }
 
 .form {
