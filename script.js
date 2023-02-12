@@ -159,8 +159,8 @@ btnLogin.addEventListener('click', function (event) {
   }
 });
 
-btnTransfer.addEventListener('click', function (event) {
-  event.preventDefault(); // Preventing from reloading after click
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault(); // Preventing from reloading after click
   const amount = +inputTransferAmount.value;
   const reciverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
@@ -177,6 +177,23 @@ btnTransfer.addEventListener('click', function (event) {
     // Update UI
     updateUI(currentAccount);
   }
+});
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = +inputLoanAmount.value;
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movement
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+
+  // Clear input fields
+  inputLoanAmount.value = '';
 });
 
 btnClose.addEventListener('click', function (e) {
