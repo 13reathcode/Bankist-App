@@ -22,7 +22,7 @@ const account1 = {
     '2023-02-12T10:51:36.790Z',
   ],
   currency: 'UAH',
-  locale: 'uk_UA',
+  locale: 'ua-UA',
 };
 
 const account2 = {
@@ -95,7 +95,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // FUNCTIONS
 
-const formatMovementDate = date => {
+const formatMovementDate = (date, locale) => {
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
 
@@ -105,11 +105,7 @@ const formatMovementDate = date => {
   if (daysPassed === 1) return 'Yesterday';
   if (daysPassed <= 7) return `${daysPassed} days ago`;
   else {
-    const day = `${date.getDate()}`.padStart(2, 0),
-      month = `${date.getMonth() + 1}`.padStart(2, 0),
-      year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
+    return new Intl.DateTimeFormat(locale).format(date);
   }
 };
 
@@ -126,7 +122,7 @@ const displayMovements = function (account, sort = false) {
     const type = movement > 0 ? 'deposit' : 'withdrawal';
 
     const date = new Date(account.movementsDates[index]);
-    const displayDate = formatMovementDate(date);
+    const displayDate = formatMovementDate(date, account.locale);
 
     // prettier-ignore
     const html = `
@@ -159,9 +155,10 @@ const calcDisplaySummary = account => {
 
   const interest = account.movements
     .filter(mov => mov > 0)
-    .map(deposit => deposit * account.interestRate)
+    .map(deposit => (deposit * account.interestRate) / 100)
     .filter(int => int > 1)
     .reduce((acc, int) => acc + int, 0);
+  console.log(interest);
   labelSumInterest.textContent = `${interest.toFixed(2)} ₴`;
 };
 
@@ -209,14 +206,19 @@ btnLogin.addEventListener('click', function (event) {
     containerApp.style.opacity = 100;
 
     // Create current date
-    const now = new Date(),
-      day = `${now.getDate()}`.padStart(2, 0),
-      month = `${now.getMonth() + 1}`.padStart(2, 0),
-      year = now.getFullYear(),
-      hour = `${now.getHours()}`.padStart(2, 0),
-      minute = `${now.getMinutes()}`.padStart(2, 0);
+    const now = new Date();
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+    };
 
-    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minute}`;
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
