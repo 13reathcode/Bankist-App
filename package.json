@@ -2,12 +2,12 @@
   "name": "banksit-app",
   "version": "1.0.0",
   "description": "",
-  "default": "application.html",
+  "default": "index.html",
   "scripts": {
     "watch:sass": "node-sass scss/main.scss css/style.css -w",
     "devserver": "live-server",
     "start": "npm-run-all --parallel devserver watch:sass",
-    "build": "parcel build application.html --dist-dir ./dist"
+    "build": "parcel build index.html --dist-dir ./dist"
   },
   "author": "13reath",
   "license": "ISC",
