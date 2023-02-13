@@ -1,4 +1,4 @@
-# Bankist | Banking application | [DEMO](https://Bankist-App-13reath.netlify.app)
+# Bankist | Banking application | [DEMO](https://Bankist-13reath.netlify.app)
 
 ## In order for this to work you need to follow these steps:
 
